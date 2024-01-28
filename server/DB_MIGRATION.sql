@@ -10,4 +10,4 @@ create table finance_category (
 
 INSERT INTO finance_category (CategoryName, Discription)
 VALUES ("Food", null), ("Social Life", null), ("Transport", null), ("Household", null), ("Apparel", null),
-("Beauty", null), ("Gym Food", null), ("Education", null), ("Gift", null), ("Long Trip", null), ("Other", null);
+("Beauty", null), ("Gym Food", null), ("Education", null), ("Gift", null), ("Long Trip", null), ("Other", null), ("Outside Food", null);
