@@ -1,7 +1,8 @@
 
 async function addFinance(req, res) {
   try {
-
+    // const [result] = await connection.query("select * from finance_category")
+    console.log(result)
     res.json({
       success: true,
       status: 200,
