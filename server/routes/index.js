@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { addTransaction } = require('../controllers/transection')
+const { addTransaction, getTransactionHistory } = require('../controllers/transection')
 const { getFinanceCategory } = require('../controllers/finance-category')
 
 
@@ -12,5 +12,7 @@ router.get('/', function(req, res, next) {
 router.get('/getFinanceCategory', getFinanceCategory);
 
 router.post('/addTransection', addTransaction);
+router.get('/getTransactionHistory', getTransactionHistory);
+
 
 module.exports = router;

@@ -41,6 +41,35 @@ async function addTransaction(req, res) {
   }
 }
 
+async function getTransactionHistory(req, res) {
+  try {
+    
+    const [error, result] = await safePromise(transectionService.getTransactionHistory())
+    if(error) {
+      console.log(error)
+      return res.status(500).json({
+        success: false,
+        status: 500,
+        msg: "Something went wrong."
+      })
+    }
+
+    return res.json({
+      success: true,
+      status: 200,
+      data: result
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: true,
+      status: 500,
+      msg: "Something went wrong!"
+    })
+  }
+}
+
 module.exports = {
-  addTransaction
+  addTransaction,
+  getTransactionHistory
 }

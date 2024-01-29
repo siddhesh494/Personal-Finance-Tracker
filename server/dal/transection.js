@@ -13,6 +13,32 @@ async function addTransactionDal(data) {
   }
 }
 
+async function getTransactionDal() {
+  try {
+    const [result] = await connection.query(
+      `SELECT 
+        t.Amount as amount, 
+        t.Description as description,
+        t.TransactionDate as transactionDate,
+        fc.FinanceCategoryID as financeCategoryID,
+        fc.CategoryName as categoryName
+      FROM transaction as t
+      INNER JOIN finance_category as fc
+        ON t.FinanceCategoryID = fc.FinanceCategoryID
+      WHERE 
+        fc.isActive=1 and
+        t.IsActive=1
+      ORDER BY t.TransactionDate DESC
+        `,
+    )
+    
+    return result
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
 module.exports = {
-  addTransactionDal
+  addTransactionDal,
+  getTransactionDal
 }
