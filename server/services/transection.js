@@ -46,14 +46,17 @@ module.exports = class Transection {
         result.forEach((item) => {
           const yearMonth = moment(item.transactionDate).format('YYYY MMMM')
           const date = moment(item.transactionDate).format('DD')
-          obj[yearMonth][date] = []
+          obj[yearMonth][date] = {
+            totalRS: 0,
+            details: []
+          }
         })
 
         result.forEach((item)=> {
           const yearMonth = moment(item.transactionDate).format('YYYY MMMM')
           const date = moment(item.transactionDate).format('DD')
-          
-          obj[yearMonth][date] && obj[yearMonth][date].push({
+          if(obj[yearMonth][date]) obj[yearMonth][date].totalRS += +item.amount
+          obj[yearMonth][date] && obj[yearMonth][date].details.push({
             amount: item.amount,
             description: item.description,
             categoryName: item.categoryName,
