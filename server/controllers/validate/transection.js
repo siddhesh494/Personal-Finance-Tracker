@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-async function addTransectionValidation(body) {
+async function addTransactionValidation(body) {
   
   const schema = Joi.object({
     amount: Joi.number().required(),
@@ -20,5 +20,5 @@ async function addTransectionValidation(body) {
 }
 
 module.exports = {
-  addTransectionValidation
+  addTransactionValidation
 }

@@ -1,10 +1,10 @@
 const connection = require('../database')
 
-async function addTransectionDal(data) {
+async function addTransactionDal(data) {
   try {
     const [result] = await connection.execute(
-      "INSERT INTO transaction (Amount, Description, FinanceCategoryID) VALUES (?, ?, ?)",
-      [data.amount, data.description, data.categoryID]
+      "INSERT INTO transaction (Amount, Description, FinanceCategoryID, TransactionDate) VALUES (?, ?, ?, ?)",
+      [data.amount, data.description, data.categoryID, data.transactionDate]
     )
     
     return result
@@ -14,5 +14,5 @@ async function addTransectionDal(data) {
 }
 
 module.exports = {
-  addTransectionDal
+  addTransactionDal
 }

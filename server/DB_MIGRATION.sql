@@ -17,6 +17,7 @@ create table transaction (
 	Amount varchar(150) not null,
   Description varchar(250),
   FinanceCategoryID integer not null,
+  TransactionDate timestamp not null,
   CreatedDate timestamp null default current_timestamp,
   UpdatedDate timestamp null default current_timestamp,
   IsActive tinyint(1) Not null default '1',

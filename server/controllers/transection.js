@@ -1,14 +1,14 @@
-const { addTransectionValidation } = require('../controllers/validate/transection')
+const { addTransactionValidation } = require('../controllers/validate/transection')
 const { safePromise } = require('../utils/require-helper')
 const Transection = require('../services/transection')
 
 const transectionService = new Transection()
 
-async function addTransection(req, res) {
+async function addTransaction(req, res) {
   try {
     
     // validate 
-    const [validationError, ] = await safePromise(addTransectionValidation(req.body))
+    const [validationError, ] = await safePromise(addTransactionValidation(req.body))
     if(validationError) {
       return res.status(422).json({
         success: false,
@@ -18,11 +18,11 @@ async function addTransection(req, res) {
     }
 
     // 
-    const [error, result] = await safePromise(transectionService.addTransection(req.body))
+    const [error, result] = await safePromise(transectionService.addTransaction(req.body))
     if(error) {
-      return res.status(422).json({
+      return res.status(500).json({
         success: false,
-        status: 422,
+        status: 500,
         msg: "Something went wrong."
       })
     }
@@ -42,5 +42,5 @@ async function addTransection(req, res) {
 }
 
 module.exports = {
-  addTransection
+  addTransaction
 }

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { addTransection } = require('../controllers/transection')
+const { addTransaction } = require('../controllers/transection')
 const { getFinanceCategory } = require('../controllers/finance-category')
 
 
@@ -11,6 +11,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/getFinanceCategory', getFinanceCategory);
 
-router.post('/addTransection', addTransection);
+router.post('/addTransection', addTransaction);
 
 module.exports = router;
