@@ -5,7 +5,7 @@ import { map, forEach } from 'lodash'
 import React, {useEffect, useState} from 'react'
 import AddTransactionModal from './AddTransactionModal'
 
-const page = () => {
+export default function Page() {
   
   const [history, setHistory] = useState({})
   const [showAccordion, setShowAccordion] = useState([])
@@ -51,7 +51,7 @@ const page = () => {
     />
       
     <div
-      className='p-4'
+      className='p-4 page-container'
     >
       <div className='flex my-5 justify-end'>
         <button 
@@ -130,5 +130,3 @@ const page = () => {
     </>
   )
 }
-
-export default page

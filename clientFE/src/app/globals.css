@@ -4,6 +4,10 @@
 
 :root {
   font-size: 20px;
+  /* margin: auto; */
+  /* width: 70%; */
+}
+.page-container {
   margin: auto;
   width: 70%;
 }
@@ -11,14 +15,22 @@
 @media (max-width: 1024px) { 
   :root {
     font-size: 18px;
+    /* margin: auto; */
+    /* width: 90% */
+  }
+  .page-container {
     margin: auto;
-    width: 90%
+    width: 90%;
   }
 }
 @media (max-width: 768px) { 
   :root {
     font-size: 14px;
+    /* margin: auto; */
+    /* width: 100% */
+  }
+  .page-container {
     margin: auto;
-    width: 100%
+    width: 100%;
   }
 }
