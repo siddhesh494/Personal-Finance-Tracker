@@ -77,17 +77,17 @@ const page = () => {
               >
                 <div className='p-4'>
                   {
-                    map(history[yearKey], (dateValue, dateKey) => {
+                    map(history[yearKey], (dateValue, dateIndex) => {
                       return (
                         <div 
-                          key={dateKey}
+                          key={dateValue.date}
                           className='border border-slate-700 rounded-md mt-1'
                         >
                           {/* head */}
                           <div
                             className='border-b border-slate-400 flex justify-between px-4 py-1'
                           >
-                            <p>{dateKey}</p>
+                            <p>{dateValue.date}</p>
                             <p>{dateValue.totalRS}</p>
                           </div>
 
@@ -96,12 +96,12 @@ const page = () => {
                             return (
                               <div 
                                 key={i}
-                                className='flex justify-between px-4 py-1 '>
+                                className='flex justify-between px-4 py-1 border-b border-slate-200'>
                                 <div
                                   className='grid grid-cols-2	gap-4'
                                 > 
                                   <div className='w-28'>
-                                    <span className='text-xs'>{item.categoryName}</span>
+                                    <span className='text-xs'>{item.category}</span>
                                   </div>
                                   <div>
                                     <span>{item.description}</span>

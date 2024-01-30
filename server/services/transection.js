@@ -1,6 +1,7 @@
 const moment = require('moment/moment')
 const { addTransactionDal, getTransactionDal } = require('../dal/transection')
 const { safePromise } = require('../utils/require-helper')
+const { uniqBy, forEach, findIndex } = require('lodash')
 
 module.exports = class Transection {
   
@@ -31,37 +32,41 @@ module.exports = class Transection {
         return Promise.reject(error)
       }
       const obj = {}
+      const sortedObj = {}
 
       if(result.length > 0) {
         // year and month
         result.forEach((item) => {
           const yearMonth = moment(item.transactionDate).format('YYYY MMMM')
-          const date = moment(item.transactionDate).format('DD')
-          obj[yearMonth] = {}
-
+          obj[yearMonth] = []
         })
 
-        // date
         result.forEach((item) => {
           const yearMonth = moment(item.transactionDate).format('YYYY MMMM')
-          const date = moment(item.transactionDate).format('DD')
-          obj[yearMonth][date] = {
-            totalRS: 0,
-            details: []
+          const date = moment(item.transactionDate).format('Do')
+
+          const d = findIndex(obj[yearMonth], {date: date})
+          if(d === -1) {
+            obj[yearMonth].push({
+              date: date,
+              totalRS: +item.amount,
+              details: [{
+                category: item.categoryName,
+                description: item.description,
+                amount: +item.amount
+              }]
+            })
+          } else {
+            obj[yearMonth][d].totalRS += +item.amount
+            obj[yearMonth][d].details.push({
+              category: item.categoryName,
+              description: item.description,
+              amount: +item.amount
+            })
           }
+          
         })
 
-        result.forEach((item)=> {
-          const yearMonth = moment(item.transactionDate).format('YYYY MMMM')
-          const date = moment(item.transactionDate).format('DD')
-          if(obj[yearMonth][date]) obj[yearMonth][date].totalRS += +item.amount
-          obj[yearMonth][date] && obj[yearMonth][date].details.push({
-            amount: item.amount,
-            description: item.description,
-            categoryName: item.categoryName,
-            categoryID: item.financeCategoryID
-          })
-        })
       }
 
       return obj
