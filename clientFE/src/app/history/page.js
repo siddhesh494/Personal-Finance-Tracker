@@ -55,7 +55,7 @@ const page = () => {
     >
       <div className='flex my-5 justify-end'>
         <button 
-          className='px-4 py-3 border-none bg-blue-500 text-white font-medium rounded-lg active:bg-blue-600'
+          className='px-4 py-3 border-none bg-blue-500 text-white font-normal md:font-medium rounded-lg active:bg-blue-600'
           onClick={() => {
             setShowAddTransactionModal(true)
           }}
@@ -100,8 +100,8 @@ const page = () => {
                                 <div
                                   className='grid grid-cols-2	gap-4'
                                 > 
-                                  <div className='w-28'>
-                                    <span className='text-xs'>{item.category}</span>
+                                  <div className='w-20 md:w-28'>
+                                    <span className='text-[10px] md:text-xs'>{item.category}</span>
                                   </div>
                                   <div>
                                     <span>{item.description}</span>

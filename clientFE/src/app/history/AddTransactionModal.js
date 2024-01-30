@@ -92,7 +92,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
         </div>
         <div >
           <DatePicker 
-            className='w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
             selected={startDate} 
             onChange={(date) => setStartDate(date)} 
             onSelect={(date) => {
@@ -112,7 +112,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
             onChange={(e) => {
               setAmount(e.target.value)
             }}
-            className='w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
             type="number"
           />
         </div>
@@ -124,7 +124,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
         </div>
         <div >
           <select 
-            className='w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
             name="category" 
             id="category"
             value={category}
@@ -132,7 +132,13 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
               setCategory(e.target.value)
             }}
           >
-            {map(categoryDropdown, (item) => <option key={item.financeCategoryID} value={item.categoryName}>{item.categoryName}</option>)}
+            {map(categoryDropdown, (item) => 
+              <option 
+                key={item.financeCategoryID} 
+                value={item.categoryName}>
+                  {item.categoryName}
+              </option>
+            )}
           
           </select>
         </div>
@@ -144,7 +150,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
         </div>
         <div >
           <input
-            className='w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
             type="text"
             value={description}
             onChange={(e) => {
