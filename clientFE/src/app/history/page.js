@@ -3,12 +3,14 @@
 import Accordion from '@/app/history/Accordion'
 import { map, forEach } from 'lodash'
 import React, {useEffect, useState} from 'react'
+import AddTransactionModal from './AddTransactionModal'
 
 const page = () => {
   
   const [history, setHistory] = useState({})
   const [showAccordion, setShowAccordion] = useState([])
-
+  const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
+  
   const getHistory = async () => {
     try {
       const data = await fetch("http://localhost:7000/getTransactionHistory")
@@ -39,9 +41,28 @@ const page = () => {
 
 
   return (
+    <>
+    <AddTransactionModal
+      isOpen={showAddTransactionModal}
+      setIsOpen={setShowAddTransactionModal}
+      successCallBack={() => {
+        getHistory()
+      }}
+    />
+      
     <div
       className='p-4'
     >
+      <div className='flex my-5 justify-end'>
+        <button 
+          className='px-4 py-3 border-none bg-blue-500 text-white font-medium rounded-lg active:bg-blue-600'
+          onClick={() => {
+            setShowAddTransactionModal(true)
+          }}
+        >
+          Add New Transection
+        </button>
+      </div>
       {
         map(Object.keys(history), (yearKey, index) => {
           return (
@@ -106,6 +127,7 @@ const page = () => {
       }
       
     </div>
+    </>
   )
 }
 

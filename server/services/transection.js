@@ -8,7 +8,6 @@ module.exports = class Transection {
     try {
       const insertObj = {
         ...data,
-        transactionDate: moment().utc().format('YYYY-MM-DD HH:mm:ss')
       }
       const [error, result] = await safePromise(addTransactionDal(insertObj))
       if(error) {

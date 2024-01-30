@@ -3,7 +3,8 @@ const Joi = require('joi')
 async function addTransactionValidation(body) {
   
   const schema = Joi.object({
-    amount: Joi.number().required(),
+    transactionDate: Joi.date().required(),
+    amount: Joi.string().required(),
     categoryID: Joi.number().required(),
     description: Joi.string().required()
   })
