@@ -1,9 +1,9 @@
 'use client'
 
-import Accordion from '@/app/history/Accordion'
+import Accordion from '@/app/Accordion'
 import { map, forEach } from 'lodash'
 import React, {useEffect, useState} from 'react'
-import AddTransactionModal from './AddTransactionModal'
+import AddTransactionModal from '../AddTransactionModal'
 
 export default function Page() {
   
