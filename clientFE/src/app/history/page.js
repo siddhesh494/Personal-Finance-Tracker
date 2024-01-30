@@ -55,12 +55,12 @@ export default function Page() {
     >
       <div className='flex my-5 justify-end'>
         <button 
-          className='px-4 py-3 border-none bg-blue-500 text-white font-normal md:font-medium rounded-lg active:bg-blue-600'
+          className='shadow-lg px-4 py-3 border-none bg-blue-500 text-white font-normal md:font-medium rounded-lg active:bg-blue-600'
           onClick={() => {
             setShowAddTransactionModal(true)
           }}
         >
-          Add New Transection
+          Add New Expense
         </button>
       </div>
       {

@@ -34,3 +34,7 @@
     width: 100%;
   }
 }
+
+.react-datepicker__input-container {
+  position: static !important;
+}

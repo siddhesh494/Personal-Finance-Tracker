@@ -16,8 +16,8 @@ router.post('/addTransection', addTransaction);
 router.get('/getTransactionHistory', getTransactionHistory);
 
 router.get('/getPresentExpenses', getPresentExpenses);
-router.get('/getExpensesByYear', getExpensesByYear);
-router.get('/getExpensesByMonth', getExpensesByMonth);
+router.post('/getExpensesByYear', getExpensesByYear);
+router.post('/getExpensesByMonth', getExpensesByMonth);
 
 
 

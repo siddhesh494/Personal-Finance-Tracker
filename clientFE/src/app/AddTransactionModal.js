@@ -84,15 +84,15 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
   }
   
   const modalHTML = (
-    <div className='m-4'>
+    <div className='md:m-4'>
       
       <div className='my-5 flex flex-row items-center'>
-        <div className='w-32'>
+        <div className='w-36 md:w-32'>
           <span className='mr-2 w-36'>Date</span>
         </div>
         <div >
           <DatePicker 
-            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-60 md:w-72 px-1 py-2 border border-black rounded-lg'
             selected={startDate} 
             onChange={(date) => setStartDate(date)} 
             onSelect={(date) => {
@@ -103,7 +103,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
       </div>
 
       <div className='my-5 flex flex-row items-center'>
-        <div className='w-32'>
+        <div className='w-36 md:w-32'>
           <span className='mr-2 w-36'>Amount</span>
         </div>
         <div >
@@ -112,19 +112,19 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
             onChange={(e) => {
               setAmount(e.target.value)
             }}
-            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-60 md:w-72 px-1 py-2 border border-black rounded-lg'
             type="number"
           />
         </div>
       </div>
 
       <div className='my-5 flex flex-row items-center'>
-        <div className='w-32'>
+        <div className='w-36 md:w-32'>
           <span className='mr-2'>Category</span>
         </div>
         <div >
           <select 
-            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-60 md:w-72 px-1 py-2 border border-black rounded-lg'
             name="category" 
             id="category"
             value={category}
@@ -145,12 +145,12 @@ const AddTransactionModal = ({ isOpen, setIsOpen, successCallBack}) => {
       </div>
 
       <div className='my-5 flex flex-row items-center'>
-        <div className='w-32'>
+        <div className='w-36 md:w-32'>
           <span className='mr-2 w-36'>Description</span>
         </div>
         <div >
           <input
-            className='w-64 md:w-72 px-1 py-2 border border-black rounded-lg'
+            className='w-60 md:w-72 px-1 py-2 border border-black rounded-lg'
             type="text"
             value={description}
             onChange={(e) => {

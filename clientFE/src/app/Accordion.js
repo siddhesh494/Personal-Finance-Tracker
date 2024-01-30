@@ -10,7 +10,7 @@ const Accordion = ({
 }) => {
   return (
     <div
-      className='border mt-2 border-blue-700 rounded-lg overflow-clip'
+      className='border mt-3 border-blue-700 rounded-lg overflow-clip shadow-xl'
     >
       <div
         onClick={handleOnClick}
