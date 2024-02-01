@@ -9,6 +9,7 @@ import AddTransactionModal from "./AddTransactionModal";
 import BarChart from './chart/BarChart';
 import { isEmpty } from 'lodash';
 import PieChart from './chart/PieChart';
+import { MONTH_LIST } from "@/commons/Contants";
 
 export default function Home() {
   const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
@@ -26,14 +27,13 @@ export default function Home() {
 
   const [selectedYear, setSelectedYear] = useState(new Date())
   const [selectedMonthYear, setSelectedMonthYear] = useState(new Date())
-  const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
 
   useEffect(() => {
     getExpensesDetailsByYear(selectedYear.getFullYear())
   }, [selectedYear])
 
   useEffect(() => {
-    getExpensesDetailsByMonthAndYear(monthList[selectedMonthYear.getMonth()],
+    getExpensesDetailsByMonthAndYear(MONTH_LIST[selectedMonthYear.getMonth()],
     selectedMonthYear.getFullYear())
   }, [selectedMonthYear])
 
@@ -55,7 +55,6 @@ export default function Home() {
       const data = await fetch('http://localhost:7000/getExpensesByYear', options)
       const json = await data.json()
       if(json.success && json.data) {
-        console.log(json)
         if(json.data.monthWiseExpenses) {
           setMonthWiseExpensesForYear({
             labels: json.data.monthWiseExpenses.map(i => i.name),
@@ -132,7 +131,6 @@ export default function Home() {
       const data = await fetch('http://localhost:7000/getPresentExpenses')
       const json = await data.json()
       if(json.success && json.data) {
-        console.log(json)
         if(json?.data?.month?.totalAmount) setThisMonthExpenses(json?.data?.month?.totalAmount) 
 
         if(json?.data?.date?.totalAmount) setThisDateExpenses(json?.data?.date?.totalAmount) 
@@ -153,7 +151,7 @@ export default function Home() {
         successCallBack={() => {
           // getHistory()
           getExpensesDetailsByYear(selectedYear.getFullYear())
-          getExpensesDetailsByMonthAndYear(monthList[selectedMonthYear.getMonth()],
+          getExpensesDetailsByMonthAndYear(MONTH_LIST[selectedMonthYear.getMonth()],
           selectedMonthYear.getFullYear())
           getPresentData()
         }}
