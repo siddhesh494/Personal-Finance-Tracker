@@ -21,3 +21,9 @@ npm run dev
 cd /clientFE
 npm run dev
 ```
+
+
+### Video demo
+
+https://github.com/siddhesh494/Personal-Finance-Tracker/assets/55457467/57b802be-e277-409b-acb2-8e5a384e7b7f
+
