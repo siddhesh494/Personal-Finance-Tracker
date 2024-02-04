@@ -10,6 +10,7 @@ import BarChart from './chart/BarChart';
 import { isEmpty } from 'lodash';
 import PieChart from './chart/PieChart';
 import { MONTH_LIST } from "@/commons/Contants";
+import { ShimmerCircularImage, ShimmerThumbnail } from "react-shimmer-effects";
 
 export default function Home() {
   const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
@@ -27,6 +28,11 @@ export default function Home() {
 
   const [selectedYear, setSelectedYear] = useState(new Date())
   const [selectedMonthYear, setSelectedMonthYear] = useState(new Date())
+  const [loader, setLoader] = useState({
+    presentExpenses: true,
+    yearlyChart: true,
+    monthlyChart: true
+  })
 
   useEffect(() => {
     getExpensesDetailsByYear(selectedYear.getFullYear())
@@ -42,6 +48,7 @@ export default function Home() {
   }, [])
 
   async function getExpensesDetailsByYear(year) {
+    setLoader(prev => ({...prev, yearlyChart: true}))
     try {
       const options = {
         method: 'POST',
@@ -77,6 +84,7 @@ export default function Home() {
 
         if(json.data.total) setTotalYearlySpend(json.data.total)
 
+        setLoader(prev => ({...prev, yearlyChart: false}))
       }
     } catch (error) {
       console.log(error)
@@ -84,6 +92,7 @@ export default function Home() {
   }
 
   async function getExpensesDetailsByMonthAndYear(month, year) {
+    setLoader(prev => ({...prev, monthlyChart: true}))
     try {
       const options = {
         method: 'POST',
@@ -120,6 +129,8 @@ export default function Home() {
 
         if(json.data.total) setTotalMonthlySpend(json.data.total)
 
+        setLoader(prev => ({...prev, monthlyChart: false}))
+
       }
     } catch (error) {
       console.log(error)
@@ -127,6 +138,7 @@ export default function Home() {
   }
 
   async function getPresentData() {
+    setLoader(prev => ({...prev, presentExpenses: true}))
     try {
       const data = await fetch('http://localhost:7000/getPresentExpenses')
       const json = await data.json()
@@ -135,6 +147,7 @@ export default function Home() {
 
         if(json?.data?.date?.totalAmount) setThisDateExpenses(json?.data?.date?.totalAmount) 
 
+        setLoader(prev => ({...prev, presentExpenses: false}))
       }
     } catch (error) {
       console.log(error)
@@ -156,6 +169,8 @@ export default function Home() {
           getPresentData()
         }}
       />
+      <div>
+      </div>
       <div className='px-10'>
         
         {/* Add transaction button */}
@@ -175,14 +190,28 @@ export default function Home() {
 
           {/* first section */}
           <div className='flex justify-between flex-col md:flex-row'>
+            {loader.presentExpenses ? (
+              <div className='md:w-[60%]'>
+                <ShimmerThumbnail height={100} rounded />
+              </div>
+            ) : (
             <div className='rounded-2xl text-white font-bold text-center p-4 bg-blue-400 md:w-[60%] shadow-xl'>
               <p>Total Expenses of this Month</p>
               <p>{thisMonthExpenses} RS</p>
             </div>
+            )}
+            
+            {loader.presentExpenses ? (
+              <div className='mt-5 md:mt-0 md:w-[35%] '>
+                <ShimmerThumbnail height={100} rounded />
+              </div>
+            ) : (
             <div className='rounded-2xl text-white font-bold text-center p-4 bg-green-400 mt-5 md:mt-0 md:w-[35%] shadow-xl'>
               <p>Today Expenses</p>
               <p>{thisDateExpenses} RS</p>
             </div>
+            )}
+            
           </div>
 
           {/* year section */}
@@ -200,22 +229,39 @@ export default function Home() {
               />
             </div>
             
-            <div className="text-center mt-1">
-              <span>Total Yearly Spend: {totalYearlySpend} RS</span>
-            </div>
+            {loader.yearlyChart ? (
+              <div className="w-20 mx-auto mt-2">
+                <ShimmerThumbnail height={20} rounded />
+              </div>
+            ) : (
+              <div className="text-center mt-1">
+                <span>Total Yearly Spend: {totalYearlySpend} RS</span>
+              </div>
+            )}
+            
 
             {/* graph */}
             <div className='flex justify-around flex-col md:flex-row mt-5'>
               <div className='w-full md:w-[50%]'>
-                {!isEmpty(monthWiseExpensesForYear) && <BarChart 
-                  chartData={monthWiseExpensesForYear}
-                />}
+                {loader.yearlyChart ? (
+                  <ShimmerThumbnail rounded />
+                ) : (
+                  !isEmpty(monthWiseExpensesForYear) && <BarChart 
+                    chartData={monthWiseExpensesForYear}
+                  />
+                )}
+                
               </div>
 
               <div className='mt-10 md:w-[24%] md:mt-0' >
-                {!isEmpty(categoryWiseExpensesForYear) && <PieChart 
-                  chartData={categoryWiseExpensesForYear}
-                />}
+                {loader.yearlyChart ? (
+                  <ShimmerCircularImage size={250} />
+                ) : (
+                  !isEmpty(categoryWiseExpensesForYear) && <PieChart 
+                    chartData={categoryWiseExpensesForYear}
+                  />
+                )}
+                
               </div>
             </div>
           </div>
@@ -234,22 +280,38 @@ export default function Home() {
                 dateFormat="MMMM yyyy"
               />
             </div>
-            <div className="text-center mt-1">
-              <span className="">Total Montly Spend: {totalMonthlySpend} RS</span>
-            </div>
+
+            {loader.monthlyChart ? (
+              <div className="w-20 mx-auto mt-2">
+                <ShimmerThumbnail height={20} rounded />
+              </div>
+            ) : (
+              <div className="text-center mt-1">
+                <span className="">Total Montly Spend: {totalMonthlySpend} RS</span>
+              </div>
+            )}
+            
             
             {/* graph */}
             <div className='flex justify-around flex-col md:flex-row mt-5'>
               <div className='w-full md:w-[50%]'>
-                {!isEmpty(monthWiseExpensesForMonthYear) && <BarChart 
-                  chartData={monthWiseExpensesForMonthYear}
-                />}
+                {loader.monthlyChart ? (
+                  <ShimmerThumbnail rounded />
+                ) : (
+                  !isEmpty(monthWiseExpensesForMonthYear) && <BarChart 
+                    chartData={monthWiseExpensesForMonthYear}
+                  />
+                )}
               </div>
 
               <div className='mt-10 md:w-[24%] md:mt-0' >
-                {!isEmpty(categoryWiseExpensesForMonthYear) && <PieChart 
-                  chartData={categoryWiseExpensesForMonthYear}
-                />}
+                {loader.monthlyChart ? (
+                  <ShimmerCircularImage size={250} />
+                ) : (
+                  !isEmpty(categoryWiseExpensesForMonthYear) && <PieChart 
+                    chartData={categoryWiseExpensesForMonthYear}
+                  />
+                )}
               </div>
             </div>
           </div>

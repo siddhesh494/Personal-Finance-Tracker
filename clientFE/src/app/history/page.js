@@ -4,14 +4,16 @@ import Accordion from '@/app/Accordion'
 import { map, forEach } from 'lodash'
 import React, {useEffect, useState} from 'react'
 import AddTransactionModal from '../AddTransactionModal'
+import { ShimmerThumbnail } from 'react-shimmer-effects'
 
 export default function Page() {
   
   const [history, setHistory] = useState({})
   const [showAccordion, setShowAccordion] = useState([])
   const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
-  
+  const [isLoading, setIsLoading] = useState(true)
   const getHistory = async () => {
+    setIsLoading(true)
     try {
       const data = await fetch("http://localhost:7000/getTransactionHistory")
       const json = await data.json()
@@ -28,6 +30,7 @@ export default function Page() {
         })
 
         setShowAccordion(temp)
+        setIsLoading(false)
       }
     } catch (error) {
       console.log(error)
@@ -63,7 +66,11 @@ export default function Page() {
           Add New Expense
         </button>
       </div>
-      {
+      {isLoading ? (
+        <div className=''>
+          <ShimmerThumbnail height={400} rounded />
+        </div>
+      ) : (
         map(Object.keys(history), (yearKey, index) => {
           return (
               <Accordion
@@ -124,7 +131,8 @@ export default function Page() {
               </Accordion>
           )
         })
-      }
+      )}
+      
       
     </div>
     </>
